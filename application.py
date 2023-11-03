@@ -41,6 +41,12 @@ def delete():
     db.execute("delete from block where id_notas = ? " , id)
     return redirect("/")
 
+@app.route("/update/<int:id>", methods=["POST"])
+def update(id):
+    nota = request.form.get("nota")
+    db.execute("update block set nota = ? WHERE id_notas = ?", nota, id)
+    return redirect("/")
+
 @app.route("/logout")
 def logout():
     session.clear()

@@ -6,74 +6,124 @@
 
 <!-- centere heroe de bootstrap examples-->
 <div class="px-4 py-5 my-5 text-center">
-    <h1 class="display-5 fw-bold text-body-emphasis">Block notas</h1>
-    <div class="col-lg-8 mx-auto">
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nota</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-                {% if notas %}
-                {% for row in notas %}
-              <tr>
-                <th scope="row">{{row.id_notas }}</th>
-                <!-- Esa clase text break es para que no se extienda el ancho de la tabla -->
-                <td class="text-break">{{ row.nota }}</td> 
-                <td>
-                    <form action="/delete" method="post">
-                        <input type="hidden" name="id" value="{{ row.id_notas}}">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-                <td></td>
-              </tr>
-              {% endfor %}
-              {% endif %}
+	<h1 class="display-5 fw-bold text-body-emphasis">Block notas</h1>
+	<div class="col-lg-8 mx-auto">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Nota</th>
+					<th scope="col"></th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if notas %}
+				{% for row in notas %}
+				<tr>
+					<th scope="row">{{row.id_notas }}</th>
+					<!-- Esa clase text break es para que no se extienda el ancho de la tabla -->
+					<td class="text-break">{{ row.nota }}</td>
+					<td>
+						<form action="/delete" method="post">
+							<input type="hidden" name="id" value="{{ row.id_notas}}">
+							<button type="submit" class="btn btn-danger">Delete</button>
+						</form>
+					</td>
+					<td><button type="submit" class="btn btn-info btn_update" data-bs-toggle="modal"
+							data-bs-target="#modal_update" data-id="{{ row.id_notas}}"
+							data-nota="{{ row.nota}}">Update</button></td>
+				</tr>
+				{% endfor %}
+				{% endif %}
 
-            </tbody>
-          </table>
-
-
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button type="button" class="btn btn-primary btn-lg px-4 gap-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Registrar Nuevo</button>
-      </div>
-    </div>
-  </div>
+			</tbody>
+		</table>
 
 
+		<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+			<button type="button" class="btn btn-primary btn-lg px-4 gap-3" data-bs-toggle="modal"
+				data-bs-target="#exampleModal">Registrar Nuevo</button>
+		</div>
+	</div>
+</div>
 
 
 
 
-  <!-- Modal -->
-  <form action="add" method="post">
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Agrega una nueva Nota</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form  class="row g-2">
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Nota</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="nota"></textarea>
-              </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Guardar cambios</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
+<!-- Modal -->
+<form action="add" method="post">
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Agrega una nueva Nota</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form class="row g-2">
+						<div class="mb-3">
+							<label for="exampleFormControlTextarea1" class="form-label">Nota</label>
+							<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+								name="nota"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Guardar cambios</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
+
+
+
+<!-- Modal UPDATE -->
+<form action="" method="post" id="form_update">
+	<div class="modal fade" id="modal_update" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Edita una Nota</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form class="row g-2">
+						<div class="mb-3">
+							<label for="update_nota" class="form-label">Nota</label>
+							<textarea class="form-control" id="update_nota" rows="3" name="nota"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Guardar cambios</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+
+<script>
+	// obtener elementos
+	let form_update = document.getElementById("form_update"); // el form par actualizar action
+	let botones_update = document.querySelectorAll(".btn_update"); // botones para asignarles evento de click
+	let update_nota = document.getElementById("update_nota"); // La nota para mostrar el texto actual
+
+	// recorrer cada boton
+	for (let boton of botones_update)
+	{
+		boton.onclick = function () { // cuando se le de click
+			//actualizar action y valor de la nota
+			form_update.action = "/update/" + boton.dataset.id;
+			update_nota.value = boton.dataset.nota;
+		}
+	}
+</script>
 
 {% endblock %}
